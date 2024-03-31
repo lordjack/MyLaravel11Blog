@@ -1,6 +1,9 @@
 <?php
 
 use Livewire\Volt\Component;
+use App\Models\Post;
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\On; 
 
 new class extends Component {
     
@@ -11,6 +14,15 @@ new class extends Component {
         $this->posts = Post::with('user')
             ->latest()
             ->get();
+        $this->getPosts(); 
+
+    #[On('post-created')]
+    public function getposts(): void
+    {
+        $this->posts = Post::with('user')
+            ->latest()
+            ->get();
+    } 
     } 
 }; ?>
 
