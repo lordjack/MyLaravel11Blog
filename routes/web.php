@@ -8,7 +8,7 @@ Route::view('/', 'welcome');
  
 Route::get('posts', [PostController::class, 'index'])
     ->middleware(['auth', 'verified'])
-    ->name('chirps'); 
+    ->name('posts'); 
  
 
 Route::view('dashboard', 'dashboard')
