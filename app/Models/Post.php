@@ -18,4 +18,9 @@ class Post extends Model
         'message',
     ];
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
