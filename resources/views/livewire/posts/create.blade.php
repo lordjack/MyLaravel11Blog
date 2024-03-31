@@ -12,7 +12,7 @@ new class extends Component
     {
         $validated = $this->validate();
  
-        auth()->user()->chirps()->create($validated);
+        auth()->user()->posts()->create($validated);
  
         $this->message = '';
     } 
