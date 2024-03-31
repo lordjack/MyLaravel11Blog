@@ -15,6 +15,7 @@ new class extends Component {
             ->latest()
             ->get();
         $this->getPosts(); 
+    }
 
     #[On('post-created')]
     public function getposts(): void
@@ -22,7 +23,6 @@ new class extends Component {
         $this->posts = Post::with('user')
             ->latest()
             ->get();
-    } 
     } 
 }; ?>
 
