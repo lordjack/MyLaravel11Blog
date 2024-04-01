@@ -42,6 +42,15 @@ new class extends Component {
  
         $this->getPosts();
     } 
+
+    public function delete(Post $post): void
+    {
+        $this->authorize('delete', $post);
+ 
+        $post->delete();
+ 
+        $this->getPosts();
+    } 
 }; ?>
 
 <div class="mt-6 bg-white shadow-sm rounded-lg divide-y">
@@ -72,6 +81,9 @@ new class extends Component {
                                 <x-dropdown-link wire:click="edit({{ $post->id }})">
                                     {{ __('Edit') }}
                                 </x-dropdown-link>
+                                <x-dropdown-link wire:click="delete({{ $post->id }})" wire:confirm="Are you sure to delete this post?"> 
+                                    {{ __('Delete') }}
+                                </x-dropdown-link> 
                             </x-slot>
                         </x-dropdown>
                     @endif
