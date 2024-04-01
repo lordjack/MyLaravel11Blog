@@ -8,6 +8,8 @@ use Livewire\Attributes\On;
 new class extends Component {
     
     public Collection $posts; 
+
+    public ?Post $editing = null; 
  
     public function mount(): void
     {
@@ -23,6 +25,13 @@ new class extends Component {
         $this->posts = Post::with('user')
             ->latest()
             ->get();
+    } 
+
+    public function edit(Post $post): void
+    {
+        $this->editing = $post;
+ 
+        $this->getPosts();
     } 
 }; ?>
 
