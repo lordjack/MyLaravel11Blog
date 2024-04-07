@@ -2,6 +2,7 @@
 
 use Livewire\Volt\Component;
 use App\Models\Post; 
+use App\Events\PostUpdated;
 use Livewire\Attributes\Validate; 
 
 new class extends Component {
@@ -25,6 +26,8 @@ new class extends Component {
         $this->post->update($validated);
  
         $this->dispatch('post-updated');
+
+        event(new PostUpdated($this->post)); // Dispatch the event after the post has been updated
     }
  
     public function cancel(): void

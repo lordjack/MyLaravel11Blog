@@ -2,6 +2,7 @@
 
 use Livewire\Attributes\Validate;
 use Livewire\Volt\Component;
+use App\Events\PostCreated;
 
 new class extends Component 
 {
@@ -11,17 +12,22 @@ new class extends Component
     public function store(): void
     {
         $validated = $this->validate();
- 
-        auth()->user()->posts()->create($validated);
- 
+
+        // Create a new post and assign it to $post
+        $post = auth()->user()->posts()->create($validated);
+
+        // Dispatch the PostCreated event with the newly created post
+        event(new PostCreated($post));
+
         $this->message = '';
 
-        $this->dispatch('post-created'); 
-    } 
+        // Dispatch a Livewire event
+        $this->dispatch('post-created');
+    }
 }; ?>
 
 <div>
-    <form wire:submit="store"> 
+    <form wire:submit="store">  
         <textarea
             wire:model="message"
             placeholder="{{ __('What\'s on your mind?') }}"

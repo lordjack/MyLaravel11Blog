@@ -10,22 +10,19 @@ new class extends Component {
     public Collection $posts; 
 
     public ?Post $editing = null; 
- 
+   
     public function mount(): void
     {
-        $this->posts = Post::with('user')
-            ->latest()
-            ->get();
-        $this->getPosts(); 
+        $this->getPosts();
     }
-
+    
     #[On('post-created')]
-    public function getposts(): void
+    public function getPosts(): void
     {
         $this->posts = Post::with('user')
             ->latest()
             ->get();
-    } 
+    }
 
     public function edit(Post $post): void
     {
@@ -91,9 +88,15 @@ new class extends Component {
                 @if ($post->is($editing)) 
                     <livewire:posts.edit :post="$post" :key="$post->id" />
                 @else
-                    <p class="mt-4 text-lg text-gray-900">{{ $post->message }}</p>
+                   <p class="mt-4 text-lg text-gray-900">{{ $post->message }}</p>
                 @endif 
             </div>
         </div>
     @endforeach
+    </ul>
 </div>
+
+<script>
+    var postIds = @json($posts->pluck('id'));
+</script>
+
